@@ -56,6 +56,7 @@ const questions = [{
 },
 ];
 
+
 //function to write README file
 function writeToFile(fileName, data) {
     fs.writeFileSync(fileName, data, (err) => {
@@ -65,12 +66,16 @@ function writeToFile(fileName, data) {
 
 // function to initialize app
 function init() {
-    inquirer.prompt(questions).then((response) => {
+   inquirer.prompt(questions)
+        .then(function (response) {
         console.log(response);
         const markdown = generateMarkdown(response);
         console.log(markdown)
-        writeToFile('README.md', markdown);
+        writeToFile('README.md', generateMarkdown(response));
     })
+        .catch (function (err){
+            console.log('Pass a string to writeToFile', err)
+        })
 }
 
 // Function call to initialize app
